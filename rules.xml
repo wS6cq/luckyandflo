@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rulelist>
+
+    <!--
+    Example of a rule. "|" indicates alternatives.
+    <rule>
+        <ruletype>blacklist|regexp</ruletype>
+        <message>some text '{$value}'</message>
+        <description>some detailed description</description>
+        <scope>line|file|filename|directory</scope>
+        <include>.*php</include> 
+        <exclude></exclude>
+        <enabled>false|true</enabled>
+        <content>.*findme1.*|.*findme2.*</content>
+    </rule>
+    -->
+
+    <rule>
+        <ruletype>regexp</ruletype>
+        <message>Blacklist item was found: '{$value}'</message>
+        <description>desc 1</description>
+        <scope>line</scope>
+        <include>.*scala</include>
+        <exclude></exclude>
+        <enabled>true</enabled>
+        <content>.*def.*</content>
+    </rule>
+
+    <rule>
+        <group>blacklist</group>
+        <message>Blacklist item was found: '{$value}'</message>
+        <description>desc 1</description>
+        <include>.*php</include>
+        <exclude></exclude>
+        <enabled>false</enabled>
+        <content>.*eval\(.*|.*inCCi_set.*</content>
+    </rule>
+
+    <rule>
+        <ruletype>regexp</ruletype>
+        <message>rule 2: '{$value}'</message>
+        <description>desc 2</description>
+        <scope>line</scope>
+        <include>.*php</include>
+        <exclude></exclude>
+        <enabled>false</enabled>
+        <content>.*static function.*</content>
+    </rule>
+    
+    
+    <rule>
+        <ruletype>blacklist</ruletype>
+        <message>Potential PHP-warning silenced.</message>
+        <description>Finds function calls that are prefixed with "@"</description>
+        <scope>line</scope>
+        <include>.*php</include>
+        <exclude></exclude>
+        <enabled>true</enabled>
+        <content>.*@[a-zA-Z0-9-_]*\(.*\).*</content>
+    </rule>    
+
+    <rule>
+        <ruletype>blacklist</ruletype>
+        <message>rule 3</message>
+        <description>desc 3</description>
+        <scope>line</scope>
+        <include></include>
+        <exclude></exclude>
+        <enabled>true</enabled>
+        <content></content>
+    </rule>
+
+</rulelist>
