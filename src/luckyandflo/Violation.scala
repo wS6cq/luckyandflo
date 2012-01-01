@@ -36,26 +36,4 @@ abstract class Violation {
 
   override def toString() = toString("")
 
-  def toCheckStyleXml() = {
-    <violation
-      message={message}
-      description={description}
-      line={line.toString}
-      col={col.toString}
-      severity={severity} />
-  }
-
-  def toHtmlList() = {
-    <tr class="htmlList">
-      <td>{line.toString}</td>
-      <td>{col.toString}</td>
-      <td>{message}</td>
-      <td>{description}</td>
-      <td>{severity}</td>
-    </tr>
-    <tr class="htmlList">
-        <td colspan="6" class="code violation">{ if (snippet.length > 255) snippet.substring(1, 255) else snippet }</td>
-    </tr>
-  }
-
 }

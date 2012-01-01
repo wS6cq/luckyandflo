@@ -28,9 +28,9 @@ object Settings {
    */
   def readArgs(args: Array[String]):Settings = {
 
-    // -r D:\mydocs\phillip\hbrs\007-dev\luckyandflo\rules.xml
-    // -d D:\mydocs\phillip\docroot\typo3-430-alpha3
-    // -o C:\output
+    // --rules D:\mydocs\phillip\hbrs\007-dev\luckyandflo\rules.xml
+    // --directory D:\mydocs\phillip\docroot\typo3-430-alpha3
+    // --output C:\output
 
     val settings = new Settings
 

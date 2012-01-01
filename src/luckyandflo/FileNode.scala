@@ -97,30 +97,6 @@ class FileNode(var path:String, var level:Int) {
   }
 
   /**
-   * Serialize to XML
-   */
-  def toCheckStyleXml():NodeBuffer = {
-    val listBuffer = new NodeBuffer
-    for (node <- nodes) {listBuffer &+ (<file path={node.path}>{node.violations.toCheckStyleXml()}</file>) &+ node.toCheckStyleXml() }
-    listBuffer
-  }
-
-  /**
-   * Serialize to HTML
-   */
-  def toHtmlList():NodeBuffer = {
-    val listBuffer = new NodeBuffer
-    for (node <- nodes) {
-      if (node.violations.items.length > 0)  {
-        listBuffer &+
-          (<p><a href={"file:///" + node.path}><h3>File: {node.path}</h3></a><table><tr><th>Line</th><th>Col</th><th>Message</th><th>Description</th><th>Severity</th></tr>{node.violations.toHtml()}</table></p>)
-      }
-      listBuffer &+ node.toHtmlList() // recursion
-    }
-    listBuffer
-  }
-
-  /**
    * Serialize to string
    */
   override def toString() = {

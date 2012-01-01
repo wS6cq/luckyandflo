@@ -21,6 +21,9 @@ import xml.NodeBuffer
  * 
  */
 
+/**
+ * Create templates for markup output
+ */
 object MarkupTemplates{
 
   def toHtmlList(project:Project) = {
@@ -44,7 +47,7 @@ object MarkupTemplates{
         <h2>Rules</h2>
         <pre>{project.rules.toString}</pre>
         <h2>Violations</h2>
-        {project.root.toHtmlList()}
+        {MarkupPartials.toHtmlList(project.root)}
         <h2>Violations (Text)</h2>
         <pre>{project.root.toString()}</pre>
       </body>
@@ -52,7 +55,7 @@ object MarkupTemplates{
   }
 
   def toCheckStyleXml(project:Project) = {
-    <root directory={project.root.path} projecttitle={project.title}>{project.root.toCheckStyleXml()}</root>
+    <root directory={project.root.path} projecttitle={project.title}>{MarkupPartials.toCheckStyleXml(project.root)}</root>
   }
 }
 

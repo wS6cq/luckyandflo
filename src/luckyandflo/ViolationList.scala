@@ -41,21 +41,4 @@ class ViolationList {
    */
   override def toString() = toString("")
 
-  /**
-   * Serialize to XML
-   */
-  def toCheckStyleXml() = {
-     val listBuffer = new NodeBuffer
-     for (item <- items) { listBuffer &+ item.toCheckStyleXml() }
-     listBuffer
-  }
-
-  /**
-   * Serialize to HTML
-   */
-  def toHtml() = {
-     val listBuffer = new NodeBuffer
-     for (item <- items) { listBuffer &+ item.toHtmlList() }
-     listBuffer
-  }
 }

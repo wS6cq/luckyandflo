@@ -1,5 +1,7 @@
 package luckyandflo
 
+import xml.NodeBuffer
+
 /**
  * Copyright (c) 2011, Phillip Kroll <contact@phillipkroll.de>
  *
@@ -19,6 +21,86 @@ package luckyandflo
  *
  */
 
+/**
+ * Convert objects into a markup serialization
+ */
+object MarkupPartials {
+
+  /**
+   * Serialize Violation to XML
+   */
+  def toCheckStyleXml(violation:Violation) = {
+      <violation
+      message={violation.message}
+      description={violation.description}
+      line={violation.line.toString}
+      col={violation.col.toString}
+      severity={violation.severity} />
+  }
+
+  /**
+   * Serialize Violation to HTML
+   */
+  def toHtmlList(violation:Violation):NodeBuffer  = {
+    <tr class="htmlList">
+      <td>{violation.line.toString}</td>
+      <td>{violation.col.toString}</td>
+      <td>{violation.message}</td>
+      <td>{violation.description}</td>
+      <td>{violation.severity}</td>
+    </tr>
+      <tr class="htmlList">
+        <td colspan="6" class="code violation">{ if (violation.snippet.length > 255) violation.snippet.substring(1, 255) else violation.snippet }</td>
+      </tr>
+  }
+
+  /**
+   * Serialize FileNode to XML
+   */
+  def toCheckStyleXml(fileNode:FileNode):NodeBuffer = {
+    val listBuffer = new NodeBuffer
+    for (node <- fileNode.nodes) {listBuffer &+ (<file path={node.path}>{MarkupPartials.toCheckStyleXml(node.violations)}</file>) &+ MarkupPartials.toCheckStyleXml(node) }
+    listBuffer
+  }
+
+  /**
+   * Serialize FileNode HTML
+   */
+  def toHtmlList(fileNode:FileNode):NodeBuffer = {
+    val listBuffer = new NodeBuffer
+    for (node <- fileNode.nodes) {
+      if (node.violations.items.length > 0)  {
+        listBuffer &+
+          (<p><a href={"file:///" + node.path}><h3>File: {node.path}</h3></a><table><tr><th>Line</th><th>Col</th><th>Message</th><th>Description</th><th>Severity</th></tr>{MarkupPartials.toHtml(node.violations)}</table></p>)
+      }
+      listBuffer &+ MarkupPartials.toHtmlList(node) // recursion
+    }
+    listBuffer
+  }
+
+  /**
+   * Serialize ViolationList to XML
+   */
+  def toCheckStyleXml(violationList:ViolationList):NodeBuffer  = {
+    val listBuffer = new NodeBuffer
+    for (item <- violationList.items) { listBuffer &+ MarkupPartials.toCheckStyleXml(item) }
+    listBuffer
+  }
+
+  /**
+   * Serialize ViolationList to HTML
+   */
+  def toHtml(violationList:ViolationList):NodeBuffer  = {
+    val listBuffer = new NodeBuffer
+    for (item <-  violationList.items) { listBuffer &+ MarkupPartials.toHtmlList(item) }
+    listBuffer
+  }
+
+}
+
+
 class MarkupPartials {
+
+
 
 }

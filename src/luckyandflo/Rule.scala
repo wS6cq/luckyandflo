@@ -47,8 +47,6 @@ class Rule {
   var content = ""
   var enabled = false
 
-
-
   override def toString() =
     "Rule: '" + description + "'\n" +
     "\tMessage: '" + message + "'\n" +
